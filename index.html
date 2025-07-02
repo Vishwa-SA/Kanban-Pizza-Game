@@ -2,23 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Kanban Pizza Game</title>
+  <title>Kanban Pizza Game 🍕 (Visual)</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Kanban Pizza Game</h1>
+  <h1>Kanban Pizza Game 🍕 (Visual + Retros)</h1>
 
   <div class="instructions">
     <h2>Pizza Instructions</h2>
-    <p>Make a pizza base (crust), add tomato sauce (red circle), add three slices of ham (pink circles), and three slices of pineapple (yellow quadrangles).</p>
-    <p>Max 3 pizzas in oven at once. Each takes at least 30 seconds to cook. No editing during baking!</p>
+    <p>Make a pizza: crust → tomato sauce (red) → 3 ham (pink) → 3 pineapple (yellow). Only 3 in oven, bake 30s!</p>
   </div>
 
   <div class="board">
     <div class="column" id="backlog" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <h2>Order Backlog</h2>
-      <div class="card" draggable="true" ondragstart="drag(event)" id="pizza1">Pizza Order 1</div>
-      <div class="card" draggable="true" ondragstart="drag(event)" id="pizza2">Pizza Order 2</div>
+      <h2>Backlog</h2>
+      <div class="card" draggable="true" ondragstart="drag(event)" id="pizza1">
+        <input type="text" class="title" value="Pizza Order 1" />
+        <select class="assignee">
+          <option value="">Assign Chef</option>
+          <option>Chef A</option>
+          <option>Chef B</option>
+          <option>Chef C</option>
+        </select>
+        <input type="number" class="estimate" placeholder="Est (pts)" />
+        <button onclick="openToppingPad('pizza1')">🍕 Add Toppings</button>
+      </div>
+      <div class="card" draggable="true" ondragstart="drag(event)" id="pizza2">
+        <input type="text" class="title" value="Pizza Order 2" />
+        <select class="assignee">
+          <option value="">Assign Chef</option>
+          <option>Chef A</option>
+          <option>Chef B</option>
+          <option>Chef C</option>
+        </select>
+        <input type="number" class="estimate" placeholder="Est (pts)" />
+        <button onclick="openToppingPad('pizza2')">🍕 Add Toppings</button>
+      </div>
     </div>
     <div class="column" id="prep" ondrop="drop(event)" ondragover="allowDrop(event)">
       <h2>Prep</h2>
@@ -39,6 +58,27 @@
     <button onclick="startOvenTimer()">Oven 30s</button>
     <div id="round-timer">Round: 00:00</div>
     <div id="oven-timer">Oven: 00:00</div>
+  </div>
+
+  <div id="toppingPad" class="modal">
+    <h3>Add Toppings</h3>
+    <div class="pizza-canvas" id="pizzaCanvas"></div>
+    <div class="toppings-toolbar">
+      <button onclick="addTopping('sauce')">Tomato Sauce</button>
+      <button onclick="addTopping('ham')">Ham</button>
+      <button onclick="addTopping('pineapple')">Pineapple</button>
+    </div>
+    <button onclick="closeToppingPad()">Close</button>
+  </div>
+
+  <div id="retroPopup" class="modal">
+    <h3>🌀 Retrospective</h3>
+    <ul>
+      <li>✅ What went well?</li>
+      <li>⚠️ What could be improved?</li>
+      <li>💡 Action items for next round?</li>
+    </ul>
+    <button onclick="closeRetro()">Close Retrospective</button>
   </div>
 
   <script src="script.js"></script>

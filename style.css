@@ -1,58 +1,63 @@
 body {
   font-family: Arial, sans-serif;
+  background: #f4f4f4;
   text-align: center;
-  background-color: #f8f8f8;
-  padding: 20px;
 }
-
-h1 {
-  color: #333;
-}
-
-.instructions {
-  background: #fff3cd;
-  border: 1px solid #ffeeba;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 8px;
-}
-
 .board {
   display: flex;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 10px;
 }
-
 .column {
-  background-color: #e0e0e0;
+  background: #ddd;
   border-radius: 8px;
   width: 18%;
-  min-height: 250px;
+  min-height: 300px;
   padding: 10px;
 }
-
 .column h2 {
-  background-color: #424242;
-  color: white;
-  padding: 8px;
-  border-radius: 5px;
+  background: #444;
+  color: #fff;
+  border-radius: 4px;
+  padding: 6px;
 }
-
 .card {
-  background: white;
-  margin: 10px;
-  padding: 10px;
+  background: #fff;
+  margin: 8px;
+  padding: 8px;
   border-radius: 6px;
-  cursor: grab;
-  border: 1px solid #ccc;
+  border: 1px solid #aaa;
 }
-
+.card input, .card select {
+  margin: 4px 0;
+  width: 90%;
+}
 .timer-controls {
-  margin-top: 20px;
+  margin: 20px;
 }
-
-#round-timer, #oven-timer {
-  font-size: 18px;
-  margin: 10px;
-  color: #000;
+.modal {
+  display: none;
+  position: fixed;
+  background: #fff;
+  border: 2px solid #444;
+  padding: 20px;
+  top: 20%;
+  left: 30%;
+  width: 40%;
+  z-index: 999;
+  border-radius: 8px;
 }
+#pizzaCanvas {
+  min-height: 150px;
+  border: 1px dashed #aaa;
+  margin-bottom: 10px;
+}
+.pizza-canvas div {
+  margin: 4px;
+  padding: 6px;
+  display: inline-block;
+  border-radius: 4px;
+}
+.sauce { background: red; color: white; }
+.ham { background: pink; }
+.pineapple { background: yellow; }
