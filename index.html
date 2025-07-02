@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kanban Pizza Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Kanban Pizza Game</h1>
+
+  <div class="instructions">
+    <h2>Pizza Instructions</h2>
+    <p>Make a pizza base (crust), add tomato sauce (red circle), add three slices of ham (pink circles), and three slices of pineapple (yellow quadrangles).</p>
+    <p>Max 3 pizzas in oven at once. Each takes at least 30 seconds to cook. No editing during baking!</p>
+  </div>
+
+  <div class="board">
+    <div class="column" id="backlog" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <h2>Order Backlog</h2>
+      <div class="card" draggable="true" ondragstart="drag(event)" id="pizza1">Pizza Order 1</div>
+      <div class="card" draggable="true" ondragstart="drag(event)" id="pizza2">Pizza Order 2</div>
+    </div>
+    <div class="column" id="prep" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <h2>Prep</h2>
+    </div>
+    <div class="column" id="toppings" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <h2>Toppings</h2>
+    </div>
+    <div class="column" id="oven" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <h2>Oven (Max 3)</h2>
+    </div>
+    <div class="column" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <h2>Done</h2>
+    </div>
+  </div>
+
+  <div class="timer-controls">
+    <button onclick="startRound()">Start 7-Min Round</button>
+    <button onclick="startOvenTimer()">Oven 30s</button>
+    <div id="round-timer">Round: 00:00</div>
+    <div id="oven-timer">Oven: 00:00</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
