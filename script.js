@@ -1,61 +1,70 @@
-let roundInterval, ovenInterval;
-let currentPizzaId = null;
 
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
-function drop(ev) {
-  ev.preventDefault();
-  const data = ev.dataTransfer.getData("text");
-  const card = document.getElementById(data);
-  const target = ev.target.closest(".column");
+let round = 1;
+let timerInterval;
 
-  if (target.id === "oven" && target.querySelectorAll(".card").length >= 3) {
-    alert("WIP limit reached!");
-    return;
-  }
+document.getElementById("add-task-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const input = document.getElementById("task-input");
+  const taskText = input.value.trim();
+  if (taskText === "") return;
 
-  target.appendChild(card);
+  const card = document.createElement("div");
+  card.className = "card";
+  card.textContent = taskText;
+  card.id = "card-" + Date.now();
+  card.draggable = true;
+  addDragEvents(card);
+
+  document.querySelector("#todo .cards").appendChild(card);
+  input.value = "";
+});
+
+function addDragEvents(card) {
+  card.addEventListener("dragstart", (e) => {
+    e.dataTransfer.setData("text/plain", e.target.id);
+  });
 }
-function startRound() {
-  let duration = 7 * 60;
-  clearInterval(roundInterval);
-  roundInterval = setInterval(() => {
-    const mins = Math.floor(duration / 60);
-    const secs = duration % 60;
-    document.getElementById("round-timer").innerText = \`Round: \${String(mins).padStart(2, '0')}:\${String(secs).padStart(2, '0')}\`;
-    if (--duration < 0) {
-      clearInterval(roundInterval);
-      document.getElementById("retroPopup").style.display = "block";
+
+document.querySelectorAll(".column").forEach((col) => {
+  col.addEventListener("dragover", (e) => e.preventDefault());
+  col.addEventListener("drop", (e) => {
+    e.preventDefault();
+    const id = e.dataTransfer.getData("text");
+    const card = document.getElementById(id);
+    col.querySelector(".cards").appendChild(card);
+    updateDoneCount();
+  });
+});
+
+function updateDoneCount() {
+  const doneCards = document.querySelectorAll("#done .card").length;
+  document.getElementById("done-count").textContent = `✅ Done: ${doneCards}`;
+}
+
+document.getElementById("start-round").addEventListener("click", () => {
+  startTimer(7 * 60);
+});
+
+function startTimer(duration) {
+  let timer = duration;
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    let minutes = Math.floor(timer / 60);
+    let seconds = timer % 60;
+    document.getElementById("timer").textContent = `⏱ ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    if (--timer < 0) {
+      clearInterval(timerInterval);
+      showRetrospective();
+      round++;
+      document.getElementById("round-count").textContent = `Round: ${round}`;
     }
   }, 1000);
 }
-function startOvenTimer() {
-  let duration = 30;
-  clearInterval(ovenInterval);
-  ovenInterval = setInterval(() => {
-    const secs = duration;
-    document.getElementById("oven-timer").innerText = \`Oven: 00:\${String(secs).padStart(2, '0')}\`;
-    if (--duration < 0) clearInterval(ovenInterval);
-  }, 1000);
+
+function showRetrospective() {
+  document.getElementById("retrospective").classList.remove("hidden");
 }
-function openToppingPad(pizzaId) {
-  currentPizzaId = pizzaId;
-  document.getElementById("pizzaCanvas").innerHTML = "";
-  document.getElementById("toppingPad").style.display = "block";
-}
-function addTopping(type) {
-  const el = document.createElement("div");
-  el.className = type;
-  el.innerText = type;
-  document.getElementById("pizzaCanvas").appendChild(el);
-}
-function closeToppingPad() {
-  document.getElementById("toppingPad").style.display = "none";
-}
-function closeRetro() {
-  document.getElementById("retroPopup").style.display = "none";
+
+function closeRetrospective() {
+  document.getElementById("retrospective").classList.add("hidden");
 }

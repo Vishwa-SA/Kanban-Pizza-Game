@@ -1,84 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Kanban Pizza Game 🍕 (Visual)</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kanban Pizza Game</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Kanban Pizza Game 🍕 (Visual + Retros)</h1>
+  <h1>Kanban Pizza Game 🍕</h1>
 
-  <div class="instructions">
-    <h2>Pizza Instructions</h2>
-    <p>Make a pizza: crust → tomato sauce (red) → 3 ham (pink) → 3 pineapple (yellow). Only 3 in oven, bake 30s!</p>
+  <div class="controls">
+    <button id="start-round">▶️ Start Round</button>
+    <span id="timer">⏱ 07:00</span>
+    <span id="round-count">Round: 1</span>
+    <span id="done-count">✅ Done: 0</span>
   </div>
+
+  <form id="add-task-form">
+    <input type="text" id="task-input" placeholder="Enter pizza task..." required />
+    <button type="submit">Add Ticket</button>
+  </form>
 
   <div class="board">
-    <div class="column" id="backlog" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <h2>Backlog</h2>
-      <div class="card" draggable="true" ondragstart="drag(event)" id="pizza1">
-        <input type="text" class="title" value="Pizza Order 1" />
-        <select class="assignee">
-          <option value="">Assign Chef</option>
-          <option>Chef A</option>
-          <option>Chef B</option>
-          <option>Chef C</option>
-        </select>
-        <input type="number" class="estimate" placeholder="Est (pts)" />
-        <button onclick="openToppingPad('pizza1')">🍕 Add Toppings</button>
-      </div>
-      <div class="card" draggable="true" ondragstart="drag(event)" id="pizza2">
-        <input type="text" class="title" value="Pizza Order 2" />
-        <select class="assignee">
-          <option value="">Assign Chef</option>
-          <option>Chef A</option>
-          <option>Chef B</option>
-          <option>Chef C</option>
-        </select>
-        <input type="number" class="estimate" placeholder="Est (pts)" />
-        <button onclick="openToppingPad('pizza2')">🍕 Add Toppings</button>
-      </div>
+    <div class="column" id="todo">
+      <h2>To Do</h2>
+      <div class="cards"></div>
     </div>
-    <div class="column" id="prep" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <h2>Prep</h2>
+    <div class="column" id="inprogress">
+      <h2>In Progress</h2>
+      <div class="cards"></div>
     </div>
-    <div class="column" id="toppings" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <h2>Toppings</h2>
-    </div>
-    <div class="column" id="oven" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <h2>Oven (Max 3)</h2>
-    </div>
-    <div class="column" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div class="column" id="done">
       <h2>Done</h2>
+      <div class="cards"></div>
     </div>
   </div>
 
-  <div class="timer-controls">
-    <button onclick="startRound()">Start 7-Min Round</button>
-    <button onclick="startOvenTimer()">Oven 30s</button>
-    <div id="round-timer">Round: 00:00</div>
-    <div id="oven-timer">Oven: 00:00</div>
-  </div>
-
-  <div id="toppingPad" class="modal">
-    <h3>Add Toppings</h3>
-    <div class="pizza-canvas" id="pizzaCanvas"></div>
-    <div class="toppings-toolbar">
-      <button onclick="addTopping('sauce')">Tomato Sauce</button>
-      <button onclick="addTopping('ham')">Ham</button>
-      <button onclick="addTopping('pineapple')">Pineapple</button>
+  <div id="retrospective" class="modal hidden">
+    <div class="modal-content">
+      <h3>📝 Retrospective</h3>
+      <p>Round Complete! Reflect with your team:</p>
+      <ul>
+        <li>✅ What worked well?</li>
+        <li>⚠️ What could be improved?</li>
+        <li>💡 What will we try next round?</li>
+      </ul>
+      <button onclick="closeRetrospective()">Close</button>
     </div>
-    <button onclick="closeToppingPad()">Close</button>
-  </div>
-
-  <div id="retroPopup" class="modal">
-    <h3>🌀 Retrospective</h3>
-    <ul>
-      <li>✅ What went well?</li>
-      <li>⚠️ What could be improved?</li>
-      <li>💡 Action items for next round?</li>
-    </ul>
-    <button onclick="closeRetro()">Close Retrospective</button>
   </div>
 
   <script src="script.js"></script>
