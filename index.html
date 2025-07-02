@@ -18,8 +18,13 @@
   </div>
 
   <form id="add-task-form">
-    <input type="text" id="task-input" placeholder="Enter pizza task..." required />
-    <button type="submit">Add Ticket</button>
+    <input type="text" id="task-input" placeholder="Enter pizza name..." required />
+    <select id="topping-select">
+      <option value="🍍🍖🍅">🍍🍖🍅 (Pineapple, Ham, Tomato)</option>
+      <option value="🍄🧅🫑">🍄🧅🫑 (Mushroom, Onion, Pepper)</option>
+      <option value="🧀🍅🍖">🧀🍅🍖 (Cheese, Tomato, Ham)</option>
+    </select>
+    <button type="submit">Add Pizza</button>
   </form>
 
   <div class="board">
@@ -27,8 +32,8 @@
       <h2>To Do</h2>
       <div class="cards"></div>
     </div>
-    <div class="column" id="inprogress">
-      <h2>In Progress</h2>
+    <div class="column" id="inprogress" data-wip-limit="3">
+      <h2>In Progress (Max 3)</h2>
       <div class="cards"></div>
     </div>
     <div class="column" id="done">

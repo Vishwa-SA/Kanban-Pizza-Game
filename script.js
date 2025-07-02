@@ -5,12 +5,13 @@ let timerInterval;
 document.getElementById("add-task-form").addEventListener("submit", function (e) {
   e.preventDefault();
   const input = document.getElementById("task-input");
+  const toppings = document.getElementById("topping-select").value;
   const taskText = input.value.trim();
   if (taskText === "") return;
 
   const card = document.createElement("div");
   card.className = "card";
-  card.textContent = taskText;
+  card.innerHTML = `<strong>${taskText}</strong><br>${toppings}`;
   card.id = "card-" + Date.now();
   card.draggable = true;
   addDragEvents(card);
@@ -31,7 +32,15 @@ document.querySelectorAll(".column").forEach((col) => {
     e.preventDefault();
     const id = e.dataTransfer.getData("text");
     const card = document.getElementById(id);
-    col.querySelector(".cards").appendChild(card);
+    const targetCol = e.currentTarget.querySelector(".cards");
+    const limit = e.currentTarget.dataset.wipLimit;
+
+    if (limit && targetCol.children.length >= parseInt(limit)) {
+      alert("⚠️ WIP limit reached! Cannot move more cards here.");
+      return;
+    }
+
+    targetCol.appendChild(card);
     updateDoneCount();
   });
 });
