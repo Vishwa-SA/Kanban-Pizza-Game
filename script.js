@@ -16,7 +16,7 @@ document.getElementById("add-task-form").addEventListener("submit", function (e)
   card.draggable = true;
   addDragEvents(card);
 
-  document.querySelector("#todo .cards").appendChild(card);
+  document.querySelector("#funnel .cards").appendChild(card);
   input.value = "";
 });
 
@@ -33,47 +33,20 @@ document.querySelectorAll(".column").forEach((col) => {
     const id = e.dataTransfer.getData("text");
     const card = document.getElementById(id);
     const targetCol = e.currentTarget.querySelector(".cards");
-    const limit = e.currentTarget.dataset.wipLimit;
+    const wipInput = e.currentTarget.querySelector(".wip-input");
+    const limit = wipInput ? parseInt(wipInput.value) : null;
 
-    if (limit && targetCol.children.length >= parseInt(limit)) {
+    if (limit && targetCol.children.length >= limit) {
       alert("⚠️ WIP limit reached! Cannot move more cards here.");
       return;
     }
 
     targetCol.appendChild(card);
-    updateDoneCount();
   });
 });
 
-function updateDoneCount() {
-  const doneCards = document.querySelectorAll("#done .card").length;
-  document.getElementById("done-count").textContent = `✅ Done: ${doneCards}`;
-}
-
-document.getElementById("start-round").addEventListener("click", () => {
-  startTimer(7 * 60);
+document.querySelectorAll(".wip-input").forEach(input => {
+  input.addEventListener("change", function() {
+    this.parentElement.parentElement.setAttribute("data-wip-limit", this.value);
+  });
 });
-
-function startTimer(duration) {
-  let timer = duration;
-  clearInterval(timerInterval);
-  timerInterval = setInterval(() => {
-    let minutes = Math.floor(timer / 60);
-    let seconds = timer % 60;
-    document.getElementById("timer").textContent = `⏱ ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    if (--timer < 0) {
-      clearInterval(timerInterval);
-      showRetrospective();
-      round++;
-      document.getElementById("round-count").textContent = `Round: ${round}`;
-    }
-  }, 1000);
-}
-
-function showRetrospective() {
-  document.getElementById("retrospective").classList.remove("hidden");
-}
-
-function closeRetrospective() {
-  document.getElementById("retrospective").classList.add("hidden");
-}

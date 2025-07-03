@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kanban Pizza Game</title>
+  <title>Kanban Pizza Game Extended</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Kanban Pizza Game 🍕</h1>
+  <h1>Kanban Pizza Game 🍕 (Extended Columns + Classes of Service)</h1>
 
   <div class="controls">
     <button id="start-round">▶️ Start Round</button>
@@ -28,30 +28,29 @@
   </form>
 
   <div class="board">
-    <div class="column" id="todo">
-      <h2>To Do</h2>
+    <div class="column" id="funnel" data-wip-limit="3">
+      <h2>Funnel <input class="wip-input" type="number" value="3" min="1"/></h2>
       <div class="cards"></div>
     </div>
-    <div class="column" id="inprogress" data-wip-limit="3">
-      <h2>In Progress (Max 3)</h2>
+    <div class="column" id="review" data-wip-limit="3">
+      <h2>Review <input class="wip-input" type="number" value="3" min="1"/></h2>
+      <div class="cards"></div>
+    </div>
+    <div class="column" id="analyze" data-wip-limit="3">
+      <h2>Analyze <input class="wip-input" type="number" value="3" min="1"/></h2>
+      <div class="cards"></div>
+    </div>
+    <div class="column" id="backlog" data-wip-limit="3">
+      <h2>Backlog <input class="wip-input" type="number" value="3" min="1"/></h2>
+      <div class="cards"></div>
+    </div>
+    <div class="column" id="implement" data-wip-limit="3">
+      <h2>Implement <input class="wip-input" type="number" value="3" min="1"/></h2>
       <div class="cards"></div>
     </div>
     <div class="column" id="done">
       <h2>Done</h2>
       <div class="cards"></div>
-    </div>
-  </div>
-
-  <div id="retrospective" class="modal hidden">
-    <div class="modal-content">
-      <h3>📝 Retrospective</h3>
-      <p>Round Complete! Reflect with your team:</p>
-      <ul>
-        <li>✅ What worked well?</li>
-        <li>⚠️ What could be improved?</li>
-        <li>💡 What will we try next round?</li>
-      </ul>
-      <button onclick="closeRetrospective()">Close</button>
     </div>
   </div>
 
