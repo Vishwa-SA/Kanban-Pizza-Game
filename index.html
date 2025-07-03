@@ -2,51 +2,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Kanban Board - Pizza Game</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        .board { display: flex; justify-content: space-around; padding: 20px; }
-        .column {
-            flex: 1;
-            margin: 0 10px;
-            background: #f0f0f0;
-            border-radius: 5px;
-            padding: 10px;
-        }
-        .column h2 { text-align: center; }
-        .task {
-            background: #fff;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kanban Pizza Game Extended</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1 style="text-align:center;">Kanban Pizza Game</h1>
-    <div class="board">
-        <div class="column" id="funnel">
-            <h2>Funnel</h2>
-            <div class="task">Task 1</div>
-            <div class="task">Task 2</div>
-        </div>
-        <div class="column" id="review">
-            <h2>Review</h2>
-        </div>
-        <div class="column" id="analyze">
-            <h2>Analyze</h2>
-        </div>
-        <div class="column" id="backlog">
-            <h2>Backlog</h2>
-        </div>
-        <div class="column" id="implement">
-            <h2>Implement</h2>
-        </div>
-        <div class="column" id="done">
-            <h2>Done</h2>
-        </div>
+  <h1>Kanban Pizza Game 🍕 (Extended Columns + Classes of Service)</h1>
+
+  <div class="controls">
+    <button id="start-round">▶️ Start Round</button>
+    <span id="timer">⏱ 07:00</span>
+    <span id="round-count">Round: 1</span>
+    <span id="done-count">✅ Done: 0</span>
+  </div>
+
+  <form id="add-task-form">
+    <input type="text" id="task-input" placeholder="Enter pizza name..." required />
+    <select id="topping-select">
+      <option value="🍍🍖🍅">🍍🍖🍅 (Pineapple, Ham, Tomato)</option>
+      <option value="🍄🧅🫑">🍄🧅🫑 (Mushroom, Onion, Pepper)</option>
+      <option value="🧀🍅🍖">🧀🍅🍖 (Cheese, Tomato, Ham)</option>
+    </select>
+    <button type="submit">Add Pizza</button>
+  </form>
+
+  <div class="board">
+    <div class="column" id="funnel" data-wip-limit="3">
+      <h2>Funnel <input class="wip-input" type="number" value="3" min="1"/></h2>
+      <div class="cards"></div>
     </div>
+    <div class="column" id="review" data-wip-limit="3">
+      <h2>Review <input class="wip-input" type="number" value="3" min="1"/></h2>
+      <div class="cards"></div>
+    </div>
+    <div class="column" id="analyze" data-wip-limit="3">
+      <h2>Analyze <input class="wip-input" type="number" value="3" min="1"/></h2>
+      <div class="cards"></div>
+    </div>
+    <div class="column" id="backlog" data-wip-limit="3">
+      <h2>Backlog <input class="wip-input" type="number" value="3" min="1"/></h2>
+      <div class="cards"></div>
+    </div>
+    <div class="column" id="implement" data-wip-limit="3">
+      <h2>Implement <input class="wip-input" type="number" value="3" min="1"/></h2>
+      <div class="cards"></div>
+    </div>
+    <div class="column" id="done">
+      <h2>Done</h2>
+      <div class="cards"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

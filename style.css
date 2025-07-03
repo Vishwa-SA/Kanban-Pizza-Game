@@ -47,8 +47,3 @@ button {
   width: 40px;
   margin-left: 5px;
 }
-
-.card.standard { border-left: 6px solid #2196f3; }
-.card.expedite { border-left: 6px solid #f44336; }
-.card.fixed-date { border-left: 6px solid #ff9800; }
-.card.intangible { border-left: 6px solid #9c27b0; }
