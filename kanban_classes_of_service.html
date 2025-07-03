@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kanban Classes of Service</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      padding: 20px;
+    }
+    .board {
+      display: flex;
+      justify-content: space-around;
+      padding: 20px;
+      gap: 10px;
+    }
+    .column {
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      width: 22%;
+      min-height: 300px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .column h2 {
+      text-align: center;
+    }
+    .task {
+      background: #cde;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: grab;
+    }
+    .task.dragging {
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <h1>Kanban Classes of Service</h1>
+  <div class="board">
+    <div class="column" id="expedite">
+      <h2>Expedite</h2>
+      <div class="task" draggable="true">🔥 Urgent Pizza for VIP</div>
+    </div>
+    <div class="column" id="fixed-date">
+      <h2>Fixed Date</h2>
+      <div class="task" draggable="true">📅 Birthday Pizza for Delivery at 6PM</div>
+    </div>
+    <div class="column" id="standard">
+      <h2>Standard</h2>
+      <div class="task" draggable="true">🍕 Regular Hawaiian Pizza</div>
+    </div>
+    <div class="column" id="intangible">
+      <h2>Intangible</h2>
+      <div class="task" draggable="true">🎯 Experiment with Vegan Crust</div>
+    </div>
+  </div>
+
+  <script>
+    const draggables = document.querySelectorAll('.task');
+    const columns = document.querySelectorAll('.column');
+
+    draggables.forEach(task => {
+      task.addEventListener('dragstart', () => {
+        task.classList.add('dragging');
+      });
+      task.addEventListener('dragend', () => {
+        task.classList.remove('dragging');
+      });
+    });
+
+    columns.forEach(column => {
+      column.addEventListener('dragover', e => {
+        e.preventDefault();
+        const dragging = document.querySelector('.dragging');
+        if (dragging) column.appendChild(dragging);
+      });
+    });
+  </script>
+</body>
+</html>
